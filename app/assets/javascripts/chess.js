@@ -1,5 +1,14 @@
 $(document).ready(function() {
-    $('#0x0y').draggable()
-    $('h1').draggable()
-    alert('common');
+    $('span').draggable({
+      stop: function () {
+        
+        debugger
+      }
+    })
+    $('.space').droppable({
+      drop: function () {
+        // check if valid move
+        debugger
+      }
+    })
 });

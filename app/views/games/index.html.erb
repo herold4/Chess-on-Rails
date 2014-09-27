@@ -24,15 +24,21 @@
       
         <% if ((i + n) % 2 == 0) %>
       
-        <div style="background-color:green;">
+        <div style="background-color:green;" 
+        class="space" id="space<%= n %><%= i %>">
           <% piece = @game.board[n,i] %>
-          <span id="<%= piece.html if piece %>"><%= piece %></span>
+          <% if piece %>
+            <span id="<%= piece.html %>"><%= piece %></span>
+          <% end %>
         </div>
         <% else %>
       
-        <div style="background-color:white;">
+        <div style="background-color:white;" 
+        class="space" id="space<%= n %><%= i %>">
           <% piece = @game.board[n,i] %>
-          <span id="<%= piece.html if piece %>"><%= piece %></span>
+          <% if piece %>
+            <span id="<%= piece.html %>"><%= piece %></span>
+          <% end %>
         </div>
         <% end %>
         
