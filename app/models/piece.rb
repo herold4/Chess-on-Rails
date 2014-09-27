@@ -13,6 +13,10 @@ class Piece
     x.to_s + 'x' + y.to_s + 'y'
   end
   
+  def valid_move?(x, y)
+    (0...8).include?(x) && (0...8).include?(y)
+  end
+  
   def to_s
     black_hash = {king: "♚",queen: "♛", rook: "♜", bishop: "♝", knight: "♞", pawn: "♟"}
     white_hash = {king: "♔",queen: "♕", rook: "♖", bishop: "♗", knight: "♘", pawn: "♙"}

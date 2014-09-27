@@ -1,15 +1,23 @@
 require 'board'
-require 'player'
 
 class Game
   
   attr_reader :board, :whites_turn
   
-  def initialize(white_player = Player.new, black_player = Player.new)
-    @white_player = white_player
-    @black_player = black_player
+  def initialize
     @whites_turn = true
     @board = Board.new
+  end
+  
+  def self.new_game
+    @@game = Game.new
+  end
+  
+  def process_move(s_pos, e_pos)
+    c_color = (@whites_turn ? :white : :black)
+    res = @board.move(s_pos, e_pos, c_color)
+    @whites_turn = !@whites_turn if res == 'executed'
+    return res
   end
   
   def won?
@@ -33,22 +41,6 @@ class Game
     end
   end
   
-  def play
-    while true
-      if @whites_turn
-        turn = :white
-      else
-        turn = :black
-      end
-      if @whites_turn
-        @white_player.move(@board, :white)
-      else
-        @black_player.move(@board, :black)
-      end
-      check_pawn_promotion(turn)
-      @whites_turn = !@whites_turn
-    end
-  end
   
   def check_pawn_promotion(color)
     class_hash = {"queen" => Queen, "rook" => Rook, "bishop" => Bishop, "knight" => Knight}
@@ -64,6 +56,10 @@ class Game
         @board[pawn.x, pawn.y] = class_hash[new_piece].new(pawn.color, @board, pawn.x, pawn.y)
       end
     end 
+  end
+  
+  def self.global_game
+    @@game ||= Game.new
   end
 
 end

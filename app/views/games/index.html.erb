@@ -1,19 +1,23 @@
 <center><h1>WELCOME TO CHESSS</h1>
-<table>
-<% @game.board.to_s.split("\n").each do |line| %>
-<tr>
-<%= line %>
-</tr>
+  
+
+<form action="/new" method="get">
+
+<button>New Game</button>
+</form>
 <br>
+
+<% if flash[:notice] %>
+    <h2 class="notice"><%= flash[:notice] %></h2>
+<% else %>
+    <h2 class="notice">Move When Ready</h2>
 <% end %>
-</table>
-<br>
 
 <% if @game.whites_turn %>
-<h2><%= "It is White's turn" %></h2>
+<h1><%= "It is White's turn" %></h2>
 <% else %>
 
-<h2><%= "It is Black's turn" %></h2>
+<h1><%= "It is Black's turn" %></h2>
 <% end %>
 
   

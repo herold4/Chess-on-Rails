@@ -35,23 +35,13 @@ class Board
     grid[7][2] = Bishop.new(:white, self, 2, 7)
     grid[7][5] = Bishop.new(:white, self, 5, 7)
   end
-  
-  
-  
+
   def []=(x, y, value)
-    if (0...8).include?(x) && (0...8).include?(y)
-      grid[y][x] = value
-    else
-      raise ArgumentError.new "#{x},#{y} is not on the board."
-    end
+    grid[y][x] = value
   end
   
   def [](x,y)
-    if (0...8).include?(x) && (0...8).include?(y)
-      grid[y][x]
-    else
-      raise ArgumentError.new "#{x},#{y} is not on the board."
-    end
+    grid[y][x]
   end
   
   def get_pieces(color)
@@ -98,19 +88,20 @@ class Board
   def move(start_pos, end_pos, color)
     square = self[start_pos[0], start_pos[1]]
     if square.nil? 
-      raise 'empty space'
+      return 'empty space'
     elsif square.color != color
-      raise 'not your piece'
+      return 'not your piece'
     elsif !square.moves.include?(end_pos)
-      raise 'invalid destination'
+      return 'invalid destination'
     else
       dupboard = deep_dup
       dupboard[start_pos[0], start_pos[1]].move(end_pos[0], end_pos[1])
       if dupboard.in_check?(color)
-        raise 'cannot move into check'
+        return 'cannot move into check'
       end
       square.move(end_pos[0], end_pos[1])
     end
+    return 'executed'
   end
   
   def checkmate?(color)
