@@ -5,7 +5,6 @@
 
 <button>New Game</button>
 </form>
-<br>
 
 <% if flash[:notice] %>
     <h2 class="notice"><%= flash[:notice] %></h2>
@@ -13,11 +12,10 @@
     <h2 class="notice">Move When Ready</h2>
 <% end %>
 
-<% if @game.whites_turn %>
-<h1><%= "It is White's turn" %></h2>
+<% if !@game.whites_turn %>
+<h1>It is Black's turn</h1>
 <% else %>
-
-<h1><%= "It is Black's turn" %></h2>
+<h1>&nbsp</h1>
 <% end %>
 
   
@@ -55,6 +53,13 @@
   
 
   </div>
+  <br><br>
+  
+  <% if @game.whites_turn %>
+  <h1>It is White's Turn</h1>
+  <% else %>
+  <h1>&nbsp</h1>
+  <% end %>
   
   </center>
 

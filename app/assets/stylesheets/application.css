@@ -14,9 +14,6 @@
  *= require_self
  */
 
-body.dragging, body.dragging * {
-  cursor: move !important;
-}
 
 .dragged {
   position: absolute;
@@ -29,6 +26,12 @@ div {
   width: 50px;
   height: 50px;
   display: inline-block;
+
+}
+
+div.space {
+  vertical-align: top;
+  
 }
 
 span {
@@ -36,7 +39,12 @@ span {
 }
 
 h2 {
-  color: green;
+  color: red;
+}
+
+.ui-draggable:hover {
+  cursor: pointer;
+  cursor: hand;
 }
 
 

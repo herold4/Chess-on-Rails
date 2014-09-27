@@ -30,6 +30,7 @@ $(document).ready(function() {
   
   
     $('span').draggable({
+      cursor: 'hand',
       stop: function () {
         if (window.hitspace) {
           data = {

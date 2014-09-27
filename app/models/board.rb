@@ -86,20 +86,18 @@ class Board
   end
   
   def move(start_pos, end_pos, color)
-    square = self[start_pos[0], start_pos[1]]
-    if square.nil? 
-      return 'empty space'
-    elsif square.color != color
-      return 'not your piece'
-    elsif !square.moves.include?(end_pos)
-      return 'invalid destination'
+    piece = self[start_pos[0], start_pos[1]]
+    if piece.color != color
+      return 'That is Not Your Piece'
+    elsif !piece.moves.include?(end_pos)
+      return 'Invalid Move'
     else
       dupboard = deep_dup
       dupboard[start_pos[0], start_pos[1]].move(end_pos[0], end_pos[1])
       if dupboard.in_check?(color)
-        return 'cannot move into check'
+        return 'That Leaves You In Check'
       end
-      square.move(end_pos[0], end_pos[1])
+      piece.move(end_pos[0], end_pos[1])
     end
     return 'executed'
   end
