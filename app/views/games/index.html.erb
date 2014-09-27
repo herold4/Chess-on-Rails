@@ -1,0 +1,52 @@
+<center><h1>WELCOME TO CHESSS</h1>
+<table>
+<% @game.board.to_s.split("\n").each do |line| %>
+<tr>
+<%= line %>
+</tr>
+<br>
+<% end %>
+</table>
+<br>
+
+<% if @game.whites_turn %>
+<h2><%= "It is White's turn" %></h2>
+<% else %>
+
+<h2><%= "It is Black's turn" %></h2>
+<% end %>
+
+  
+  <% (0..7).each do |n| %>
+      <div class="col">
+      
+      <% 8.times do |i| %>
+      
+        <% if ((i + n) % 2 == 0) %>
+      
+        <div style="background-color:green;">
+          <% piece = @game.board[n,i] %>
+          <span id="<%= piece.html if piece %>"><%= piece %></span>
+        </div>
+        <% else %>
+      
+        <div style="background-color:white;">
+          <% piece = @game.board[n,i] %>
+          <span id="<%= piece.html if piece %>"><%= piece %></span>
+        </div>
+        <% end %>
+        
+      <% end %>
+
+
+      </div>
+
+  <% end %>
+  
+
+  </div>
+  
+  </center>
+
+
+  
