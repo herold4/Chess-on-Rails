@@ -87,8 +87,8 @@ class Board
   
   def move(start_pos, end_pos, color)
     piece = self[start_pos[0], start_pos[1]]
-    if piece.color != color
-      return 'That is Not Your Piece'
+    if piece.color.to_s != color.to_s
+      return "You cannot move your opponent's piece"
     elsif !piece.moves.include?(end_pos)
       return 'Invalid Move'
     else
