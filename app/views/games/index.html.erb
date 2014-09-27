@@ -34,7 +34,7 @@
         <% else %>
       
         <div style="background-color:white;" 
-        class="space" id="space<%= n %><%= i %>">
+        class="space" id="<%= n %>x<%= i %>y">
           <% piece = @game.board[n,i] %>
           <% if piece %>
             <span id="<%= piece.html %>"><%= piece %></span>

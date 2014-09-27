@@ -6,7 +6,6 @@
 $(document).ready(function() {
   
   function post(params) {
-    debugger
       method = "post"; // Set method to post by default if not specified.
 
       // The rest of this code assumes you are not using a library.
@@ -43,9 +42,9 @@ $(document).ready(function() {
             landing: 'offboard'
           }
         }
-        post(data);
-        debugger
         window.hitspace = false;
+        post(data);
+        
       }
     })
     $('.space').droppable({
