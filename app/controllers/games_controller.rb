@@ -9,6 +9,7 @@ class GamesController < ApplicationController
       session[:visit_count] += 1
       @game = Game.global_game
     end
+    @visit_count = session[:visit_count]
     render :index
   end
   
