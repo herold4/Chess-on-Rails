@@ -11,7 +11,6 @@ class GamesController < ApplicationController
     start = start_pos
     land = end_pos
     notice = @game.process_move(start,land)
-    @game.check_pawn_promotion
     flash[:notice] = notice
     redirect_to root_url
   end
