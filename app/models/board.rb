@@ -107,13 +107,9 @@ class Board
       row.each do |tile|
         next if tile.nil? || tile.color != color
         tile.moves.each do |potential_move|
-          begin
-            dupboard = deep_dup
-            dupboard.move([tile.x, tile.y], potential_move, color)
-          rescue InCheckException
-            next
-          end
-          return false
+          dupboard = deep_dup
+          dupboard.move([tile.x, tile.y], potential_move, color)
+          return false unless dupboard.in_check?(color)
         end
       end
     end

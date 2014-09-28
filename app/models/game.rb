@@ -19,7 +19,8 @@ class Game
     @whites_turn = !@whites_turn if res == 'executed'
     c_color = (@whites_turn ? :white : :black)
     if res =='executed' && @board.in_check?(c_color)
-      res += "- Player In Check!!" 
+      res = "Player In Check!!" 
+      res = "THAT LOOKS LIKE CHECKMATE!" if won?
     end
     return res
   end
@@ -29,19 +30,6 @@ class Game
       @board.checkmate?(:white)
     else
       @board.checkmate?(:black)
-    end
-    
-  end
-  
-  def winner
-    if won?
-      if @whites_turn
-        :black
-      else
-        :white
-      end
-    else
-      nil
     end
   end
   
