@@ -1,6 +1,6 @@
 <center>
-    <h6>Pawns are always promoted to Queens, There is no En passant, and you may castle out of or through check. Otherwise, all rules are enforced.</h6>
-  <h1 id="maintitle">CHESS</h1>
+
+  <h2 id="maintitle">CHESS</h2>
 
   
 
@@ -16,9 +16,13 @@
 <% end %>
 
 <% if !@game.whites_turn %>
-<h1 style="background-color: lightgrey; width: 426px;">Black's turn</h1>
+<h1 style="background-color: black; width: 426px;">
+<span class="black">Black's turn</span>
+</h1>
 <% else %>
-<h1>&nbsp</h1>
+<h1 style="background-color: lightgrey; width: 426px;">
+<span class="white">White's turn</span>
+</h1>
 <% end %>
 
   
@@ -59,9 +63,13 @@
   <br><br>
   
   <% if @game.whites_turn %>
-<h1 style="background-color: lightgrey; width: 431px;">White's turn</h1>
+  <h1 style="background-color: lightgrey; width: 431px;">
+    <span class="white">White's turn</span>
+  </h1>
   <% else %>
-  <h1>&nbsp</h1>
+  <h1 style="background-color: black; width: 431px;">
+    <span class="black">Black's turn</span>
+  </h1>
   <% end %>
   
   <% if flash[:notice] %>
