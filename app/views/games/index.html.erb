@@ -1,6 +1,5 @@
 <center>
 
-  <h2 id="maintitle">CHESS</h2>
 
 <form action="/new" method="get">
 
@@ -75,9 +74,14 @@
   <% else %>
       <h2 class="notice">Move When Ready</h2>
   <% end %>
-  
-  
-  
+
   </center>
+
+
+  
+
+  <p>Your browser is given a Session Id for each game.  Games will be stringified, and saved on every move.  Creating a new game will reset your Session ID</p>
+  <h3>Session ID: <%= @s_id[0..10] %>...</h3>
+
 
   

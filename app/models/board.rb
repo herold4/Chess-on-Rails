@@ -5,9 +5,12 @@ require 'piece'
 class Board
   attr_accessor :grid
   
+  
   def initialize
     @grid = Array.new(8) { Array.new(8, nil) }
-    
+  end
+  
+  def place_pieces
     # pawns
     (0...8).each do |col|
       grid[1][col] = Pawn.new(:black, self, col, 1)

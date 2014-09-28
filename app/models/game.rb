@@ -7,7 +7,7 @@ class Game < ActiveRecord::Base
   validates :session_id, presence: true
   
   def from_s
-    g = ChessGame.new
+    g = ChessGame.blank
     if self.turn == 'white'
       g.whites_turn = true
     else 
@@ -29,16 +29,16 @@ class Game < ActiveRecord::Base
       "__" => true      
     }
     str_arr = self.state.split("\n")
-    str_arr.each_with_index do |row_str, col|
+    str_arr.each_with_index do |row_str, row|
       row_arr = row_str.split('').select {|c| piece_hash[c]}
-      row_arr.each_with_index do |char,row|
+      row_arr.each_with_index do |char,col|
         if char == "__"
-          g.board[row,col] = nil
+          g.board[col,row] = nil
         else
           clazz = piece_hash[char][0]
           color = piece_hash[char][1].to_sym
           p = clazz.new(color,g.board,col,row)
-          g.board[row,col] = p
+          g.board[col,row] = p
         end
       end
     end
@@ -57,11 +57,19 @@ class ChessGame
   
   def initialize
     @whites_turn = true
-    @board = Board.new
   end
   
   def self.new_game
-    @@game = self.new
+    game = ChessGame.new
+    game.board = Board.new
+    game.board.place_pieces
+    game
+  end
+  
+  def self.blank
+    game = ChessGame.new
+    game.board = Board.new
+    game
   end
   
   def process_move(s_pos, e_pos)
@@ -93,10 +101,6 @@ class ChessGame
         @board[pawn.x, pawn.y] = Queen.new(pawn.color, @board, pawn.x, pawn.y)
       end
     end 
-  end
-  
-  def self.global_game
-    @@game || self.new_game
   end
   
   
