@@ -2,12 +2,7 @@ class GamesController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def index
-    if session[:token]
-      @game = Game.global_game
-    else
-      session[:token] = 1
-      @game = Game.new_game
-    end
+    @game = Game.global_game
     render :index
   end
   
