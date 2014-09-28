@@ -1,4 +1,7 @@
-<center><h1>WELCOME TO CHESSS</h1>
+<center>
+    <h6>Pawns are always promoted to Queens, There is no En passant, and you may castle out of or through check. Otherwise, all rules are enforced.</h6>
+  <h1 id="maintitle">CHESS</h1>
+
   
 
 <form action="/new" method="get">
@@ -7,13 +10,13 @@
 </form>
 
 <% if flash[:notice] %>
-    <h2 class="notice"><%= flash[:notice] %></h2>
+    <h2 class="notice" ><%= flash[:notice] %></h2>
 <% else %>
     <h2 class="notice">Move When Ready</h2>
 <% end %>
 
 <% if !@game.whites_turn %>
-<h1>Black's turn</h1>
+<h1 style="background-color: lightgrey; width: 426px;">Black's turn</h1>
 <% else %>
 <h1>&nbsp</h1>
 <% end %>
@@ -56,10 +59,18 @@
   <br><br>
   
   <% if @game.whites_turn %>
-  <h1>White's Turn</h1>
+<h1 style="background-color: lightgrey; width: 431px;">White's turn</h1>
   <% else %>
   <h1>&nbsp</h1>
   <% end %>
+  
+  <% if flash[:notice] %>
+      <h2 class="notice"><%= flash[:notice] %></h2>
+  <% else %>
+      <h2 class="notice">Move When Ready</h2>
+  <% end %>
+  
+  
   
   </center>
 

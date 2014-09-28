@@ -13,7 +13,13 @@
  *= require_tree .
  *= require_self
  */
+body {
+  background-color: black;
+}
 
+#maintitle {
+  color:white;
+}
 
 .dragged {
   position: absolute;
@@ -36,6 +42,7 @@ div.space {
 
 span {
   font-size: 30px;
+  
 }
 
 h2 {
@@ -47,4 +54,16 @@ h2 {
   cursor: hand;
 }
 
+button {
+  font-size: 20px;
+}
+
+button:hover {
+  cursor: pointer;
+  cursor: hand;
+}
+
+h6 {
+  color: white;
+}
 
