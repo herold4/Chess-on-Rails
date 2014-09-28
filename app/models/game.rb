@@ -17,6 +17,10 @@ class Game
     c_color = (@whites_turn ? :white : :black)
     res = @board.move(s_pos, e_pos, c_color)
     @whites_turn = !@whites_turn if res == 'executed'
+    c_color = (@whites_turn ? :white : :black)
+    if res =='executed' && @board.in_check?(c_color)
+      res += "- Player In Check!!" 
+    end
     return res
   end
   

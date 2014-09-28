@@ -47,6 +47,8 @@ $(document).ready(function() {
         console.log(data)
         window.hitspace = false;
         post(data);
+      } else {
+        location.reload()
       }         
     }
   })
