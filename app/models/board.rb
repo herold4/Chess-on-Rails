@@ -117,15 +117,14 @@ class Board
   end
   
   def to_s
-    result = "\n"
+    result = ""
     grid.each_with_index do |row, i|
-      result << (i + 1).to_s
       row.each_with_index do |piece, i2|
         piece ||= "__"
         result << " #{piece} " if (i + i2) % 2 == 0
         result << " #{piece} " if (i + i2) % 2 == 1
       end
-      result << "#{i + 1}\n"
+      result << "\n"
     end
     return result
   end

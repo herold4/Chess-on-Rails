@@ -1,8 +1,59 @@
+# encoding: utf-8
 require 'board'
 
-class Game
+class Game < ActiveRecord::Base
+  validates :state, presence: true
+  validates :turn, presence: true
+  validates :session_id, presence: true
   
-  attr_reader :board, :whites_turn
+  def from_s
+    g = ChessGame.new
+    if self.turn == 'white'
+      g.whites_turn = true
+    else 
+      g.whites_turn = false
+    end
+    piece_hash = {
+      "♚" => [King, 'black'],
+      "♛" => [Queen, 'black'],
+      "♜" => [Rook, 'black'],
+      "♝" => [Bishop, 'black'],
+      "♞" => [Knight, 'black'],
+      "♟" => [Pawn, 'black'],
+      "♔" => [King, 'white'],
+      "♕" => [Queen, 'white'],
+      "♖" => [Rook, 'white'],
+      "♗" => [Bishop, 'white'],
+      "♘" => [Knight, 'white'],
+      "♙" => [Pawn, 'white'],
+      "__" => true      
+    }
+    str_arr = self.state.split("\n")
+    str_arr.each_with_index do |row_str, col|
+      row_arr = row_str.split('').select {|c| piece_hash[c]}
+      row_arr.each_with_index do |char,row|
+        if char == "__"
+          g.board[row,col] = nil
+        else
+          clazz = piece_hash[char][0]
+          color = piece_hash[char][1].to_sym
+          p = clazz.new(color,g.board,col,row)
+          g.board[row,col] = p
+        end
+      end
+    end
+    return g
+  end
+  
+  def self.make_game_string
+    g = ChessGame.new
+    g.to_s    
+  end
+end
+
+class ChessGame
+  
+  attr_accessor :board, :whites_turn
   
   def initialize
     @whites_turn = true
@@ -10,7 +61,7 @@ class Game
   end
   
   def self.new_game
-    @@game = Game.new
+    @@game = self.new
   end
   
   def process_move(s_pos, e_pos)
@@ -45,7 +96,16 @@ class Game
   end
   
   def self.global_game
-    @@game ||= Game.new
+    @@game || self.new_game
+  end
+  
+  
+  def to_s
+    @board.to_s
+  end
+  
+  def turn
+    @whites_turn ? 'white' : 'black'
   end
 
 end
