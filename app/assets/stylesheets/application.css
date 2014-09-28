@@ -14,11 +14,11 @@
  *= require_self
  */
 body {
-  background-color: black;
+  background-color: white;
 }
 
 #maintitle {
-  color:white;
+  color:black;
 }
 
 .dragged {
@@ -64,6 +64,6 @@ button:hover {
 }
 
 h6 {
-  color: white;
+  color: black;
 }
 
