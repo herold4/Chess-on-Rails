@@ -5,6 +5,10 @@ require 'piece'
 class Board
   attr_accessor :grid
   
+  def generate_moved_arrays
+      
+    
+  end
   
   def initialize
     @grid = Array.new(8) { Array.new(8, nil) }

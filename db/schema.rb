@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140928074658) do
+ActiveRecord::Schema.define(version: 20140928201057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20140928074658) do
     t.string   "state"
     t.string   "turn"
     t.string   "session_id"
+    t.string   "white_moved"
+    t.string   "black_moved"
   end
 
   create_table "pieces", force: true do |t|
