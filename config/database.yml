@@ -10,7 +10,7 @@ default: &default
 
 development:
   adapter: postgresql
-  database: chess_production
+  database: chess_db
   pool: 5
   timeout: 5000
 
