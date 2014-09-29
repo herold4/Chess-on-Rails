@@ -27,6 +27,6 @@ test:
   
 production: 
   adapter: postgresql
-  database: chess_db
+  database: chess_production
   pool: 5
   timeout: 5000
