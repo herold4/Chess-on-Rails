@@ -80,7 +80,7 @@ class ChessGame
     next_color = (@whites_turn ? :white : :black)
     if res =='executed' && @board.in_check?(next_color)
       res = "Player In Check!!" 
-      res = "THAT LOOKS LIKE CHECKMATE!" if won?
+      res = "That looks like CHECKMATE!" if won?
     end
     return res
   end
