@@ -4,22 +4,21 @@ class GamesController < ApplicationController
   def index
     if session[:token].nil?
       session[:token] = SecureRandom.urlsafe_base64(16)
-      @s_id = session[:token]
+      @s_token = session[:token]
       @game = ChessGame.new_game
-      @dbgame = create_game(@game, @s_id)
+      create_game(@game, @s_token)
       flash[:notice] = 'New Session'
       render :index
     else
       if current_game
-        @dbgame = current_game
-        @game = @dbgame.from_s
-        @s_id = session[:token]
+        @game = current_game.from_s
+        @s_token = session[:token]
         render :index
-      else
+      else #if current game not found
         session[:token] = SecureRandom.urlsafe_base64(16)
-        @s_id = session[:token] 
+        @s_token = session[:token] 
         @game = new_game_data
-        @dbgame = create_game(@game, @s_id)
+        create_game(@game, @s_token)
         flash[:notice] = 'Welcome Back'
         render :index 
       end     
@@ -33,40 +32,36 @@ class GamesController < ApplicationController
   end
   
   def move
-    @dbgame = current_game
-    @game = @dbgame.from_s
+    @game = current_game.from_s
     start = start_params
     land = end_params
     notice = @game.process_move(start,land)
     flash[:notice] = notice
-    @s_id = session[:token]
-    update_state(@dbgame, @game, @s_id)
+    @s_token = session[:token]
+    update_state(@game, @s_token)
     render :index
   end
   
   private
   
-  def create_game(chessgame, s_id)
-    game = Game.create({
+  def create_game(chessgame, token)
+    dbgame = Game.create({
       state: chessgame.to_s,
       turn: chessgame.turn,
-      session_id: s_id
+      session_id: token
     })
-    @current_game = game
-    game
   end
   
-  def update_state(dbgame, chessgame, s_id)
-    dbgame.update_attributes({
+  def update_state(chessgame, token)
+    current_game.update_attributes({
       state: chessgame.to_s, 
       turn: chessgame.turn,
-      session_id: s_id
+      session_id: token
     })
-    @current_game = dbgame
   end
   
   def current_game
-    c_g = @current_game || Game.find_by_session_id(session[:token])
+    @current_game || Game.find_by_session_id(session[:token])
   end
   
   def new_game_data
@@ -80,6 +75,5 @@ class GamesController < ApplicationController
   def end_params
     [params[:landing][0].to_i, params[:landing][2].to_i]
   end
-  
   
 end
