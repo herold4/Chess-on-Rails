@@ -80,7 +80,7 @@
 
   
 
-  <p>Your browser is given a new session token (encrypted in the cookie) for each new game - the game created in the database is given a matching token.  This token will ensure that with every request, the client is playing the game which they started.  The state of games are stringified, and saved to the database on every move.  As of now, the DB only knows where all the pieces are and whose turn it is.  It doesn't, for example, know if you've moved your king.  The logic for game is found in '/app/models'.</p>
+  <p>Your browser is given a new session token (encrypted in the cookie) for each new game - the game created in the database is given a matching token.  This token will ensure that, with every request, the client is playing the game which they started.  The state of games are stringified and saved to the database on every move.  As of now the DB only knows where all the pieces are and whose turn it is.  It doesn't, for example, know if you've moved your king.  The logic for the game is found in '/app/models'.</p>
   <h3>Session Token: <%= @s_id[0..10] %>...</h3>
 
 
