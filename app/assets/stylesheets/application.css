@@ -13,6 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
 body {
   background-color: white;
 }
@@ -21,18 +22,21 @@ body {
   color:black;
 }
 
+button {
+  position: relative;
+  left: 3px;
+}
+
 .dragged {
   position: absolute;
   opacity: 0.5;
   z-index: 2000;
 }
 
-
 div {
   width: 50px;
   height: 50px;
   display: inline-block;
-
 }
 
 div.space {
@@ -46,8 +50,11 @@ span {
 }
 
 section {
+  position: fixed;
   border: thin solid black;
+  top: 590px;
   padding: 10px;
+  margin: 20px;
 }
 
 span.black {
@@ -74,5 +81,27 @@ button:hover {
 
 h6 {
   color: black;
+}
+
+.notice-div {
+  position: absolute;
+  top: 30px;
+  width: 100%;
+  
+  
+}
+
+h2.notice {
+  margin-left: -15px;
+}
+
+#lower-turn {
+  border: none;
+  padding: 0px;
+  margin: 0px;
+  position: absolute;
+  top: 540px;
+  width: 99%;
+  
 }
 
