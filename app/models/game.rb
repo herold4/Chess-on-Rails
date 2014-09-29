@@ -26,7 +26,7 @@ class Game < ActiveRecord::Base
       "♗" => [Bishop, 'white'],
       "♘" => [Knight, 'white'],
       "♙" => [Pawn, 'white'],
-      "__" => true      
+      "_" => true      
     }
     str_arr = self.state.split("\n")
     str_arr.each_with_index do |row_str, row|
