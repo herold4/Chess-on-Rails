@@ -129,10 +129,11 @@ class Pawn < Piece
   def moves
     results =[]
     directions = {black: 1, white: -1}
+    starting_y = {black: 1, white: 6}
     vertical_movement = directions[color]
     if board[x, y + vertical_movement].nil?
       results << [x, y + vertical_movement]
-      if !moved && board[x, y + (vertical_movement * 2)].nil?
+      if y == starting_y[color] && board[x, y + (vertical_movement * 2)].nil?
         results << [x, y + (vertical_movement * 2)]
       end
     end
