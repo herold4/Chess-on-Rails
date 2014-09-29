@@ -127,7 +127,7 @@ class Board
     result = ""
     grid.each_with_index do |row, i|
       row.each_with_index do |piece, i2|
-        piece ||= "__"
+        piece ||= "_"
         result << " #{piece} " if (i + i2) % 2 == 0
         result << " #{piece} " if (i + i2) % 2 == 1
       end

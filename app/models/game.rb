@@ -32,7 +32,7 @@ class Game < ActiveRecord::Base
     str_arr.each_with_index do |row_str, row|
       row_arr = row_str.split('').select {|c| piece_hash[c]}
       row_arr.each_with_index do |char,col|
-        if char == "__"
+        if char == "_"
           g.board[col,row] = nil
         else
           clazz = piece_hash[char][0]
