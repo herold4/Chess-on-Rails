@@ -34,8 +34,8 @@ button {
 }
 
 div {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   display: inline-block;
 }
 
@@ -52,8 +52,9 @@ span {
 section {
   position: fixed;
   border: thin solid black;
-  top: 590px;
+  top: 575px;
   padding: 10px;
+  padding-top: 2px;
   margin: 20px;
 }
 
@@ -85,7 +86,7 @@ h6 {
 
 .notice-div {
   position: absolute;
-  top: 30px;
+  top: 41px;
   width: 100%;
   
   
@@ -100,8 +101,17 @@ h2.notice {
   padding: 0px;
   margin: 0px;
   position: absolute;
-  top: 540px;
+  top: 510px;
   width: 99%;
   
+}
+
+#upper-turn {
+  position: relative;
+  top: 7px;
+}
+
+p {
+  font-size: 14px;
 }
 
