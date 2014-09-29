@@ -79,9 +79,11 @@
 
 
   
-
-  <p>Your browser is given a new session token (encrypted in the cookie) for each new game - the game created in the database is given a matching token.  This token will ensure that, with every request, the client is playing the game which they started.  The state of games are stringified and saved to the database on every move.  As of now the DB only knows where all the pieces are and whose turn it is.  It doesn't, for example, know if you've moved your king.  The logic for the game is found in '/app/models'.</p>
+<section id="session-info">
   <h3>Session Token: <%= @s_id[0..10] %>...</h3>
+  <p>Your browser is given a new session token (encrypted in the cookie) for each new game.  Similarly the new game created in the database is given a matching token.  This token will ensure that, with every request, the client is playing the game which <i>they</i> started.  The state of games are stringified and updated in the database on every move.  As of now the DB only knows where all the pieces are and whose turn it is.  It doesn't yet know, for example, if you've moved your king.  The logic for the game is found in '/app/models'. </p>
+  <p>If you want to dig a little deeper, look at the 'games_controller.rb' and 'game.rb' to see how the Game model in the databas is converted into a more complex ChessGame object in Ruby. The most interesting part of this application is how the ChessGame class checks the state of the game ('check', 'checkmate', 'invalid move', etc) and gives that information back to the games_controller.</p>
+</section>
 
 
   

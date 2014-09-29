@@ -45,6 +45,9 @@ span {
   
 }
 
+section {
+  border: thin solid black;
+}
 
 span.black {
   color: white;
