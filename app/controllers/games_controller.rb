@@ -50,6 +50,7 @@ class GamesController < ApplicationController
       turn: chessgame.turn,
       session_id: token
     })
+    @current_game = dbgame
   end
   
   def update_state(chessgame, token)
@@ -61,7 +62,7 @@ class GamesController < ApplicationController
   end
   
   def current_game
-    @current_game || Game.find_by_session_id(session[:token])
+    @current_game ||= Game.find_by_session_id(session[:token])
   end
   
   def new_game_data
