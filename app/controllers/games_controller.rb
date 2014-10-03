@@ -7,18 +7,25 @@ class GamesController < ApplicationController
       @s_token = session[:token]
       @game = ChessGame.new_game
       create_game(@game, @s_token)
+      @white_player = current_game.players.where(white: true)
+      @black_player = current_game.players.where(white: false)
       flash[:notice] = 'New Session'
       render :index
     else
       if current_game
         @game = current_game.from_s
+        @white_player = current_game.players.where(white: true)
+        @black_player = current_game.players.where(white: false)
         @s_token = session[:token]
+        flash[:notice] = 'Welcome Back'
         render :index
       else #if current game not found
         session[:token] = SecureRandom.urlsafe_base64(16)
         @s_token = session[:token] 
         @game = new_game_data
         create_game(@game, @s_token)
+        @white_player = current_game.players.where(white: true)
+        @black_player = current_game.players.where(white: false)
         flash[:notice] = 'Welcome Back'
         render :index 
       end     
@@ -33,10 +40,13 @@ class GamesController < ApplicationController
   
   def move
     @game = current_game.from_s
+    @white_player = current_game.players.where(white: true)
+    @black_player = current_game.players.where(white: false)
     start = start_params
     land = end_params
-    notice = @game.process_move(start,land)
-    flash[:notice] = notice
+    response_arr = @game.process_move(start,land)
+    flash[:notice] = response_arr[2]
+    fail
     @s_token = session[:token]
     update_state(@game, @s_token)
     render :index
