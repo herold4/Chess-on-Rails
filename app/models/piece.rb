@@ -34,9 +34,9 @@ class Piece
     @x, @y = new_x, new_y
     board[new_x, new_y] = self
     if capture
-      return [capture.class,capture.color]
+      return [capture.class, capture.color, 'executed']
     else
-      return [nil,nil]
+      return [nil, nil, 'executed']
     end
   end
 

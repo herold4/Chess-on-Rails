@@ -76,15 +76,15 @@ class ChessGame
   
   def process_move(s_pos, e_pos)
     c_color = (@whites_turn ? :white : :black)
-    res = @board.move(s_pos, e_pos, c_color)
+    res_arr = @board.move(s_pos, e_pos, c_color)
     check_pawn_promotion
-    @whites_turn = !@whites_turn if res == 'executed'
+    @whites_turn = !@whites_turn if res_arr[2] == 'executed'
     next_color = (@whites_turn ? :white : :black)
-    if res.class == Array && @board.in_check?(next_color)
-      res << "Player In Check!!" 
-      res << "That looks like CHECKMATE!" if won?
+    if res_arr[2] == 'executed' && @board.in_check?(next_color)
+      res_arr[2] = "Player In Check!!" 
+      res_arr[2] = "That looks like CHECKMATE!" if won?
     end
-    return res
+    return res_arr
   end
   
   def won?
