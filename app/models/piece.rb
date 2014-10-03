@@ -29,10 +29,15 @@ class Piece
   end
   
   def move(new_x, new_y)
-
+    capture = board[x,y]
     board[x, y] = nil
     @x, @y = new_x, new_y
     board[new_x, new_y] = self
+    if capture
+      return [capture.class,capture.color]
+    else
+      return [nil,nil]
+    end
   end
 
   

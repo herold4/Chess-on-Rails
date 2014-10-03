@@ -50,6 +50,16 @@ class GamesController < ApplicationController
       turn: chessgame.turn,
       session_id: token
     })
+    Player.create({
+      white: true,
+      game_id: dbgame.id,
+      captured_pieces: ''
+    })
+    Player.create({
+      white: false,
+      game_id: dbgame.id,
+      captured_pieces: ''
+    })
     @current_game = dbgame
   end
   

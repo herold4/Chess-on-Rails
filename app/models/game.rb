@@ -6,6 +6,8 @@ class Game < ActiveRecord::Base
   validates :turn, presence: true
   validates :session_id, presence: true
   
+  has_many :players
+  
   def from_s
     g = ChessGame.blank
     if self.turn == 'white'
@@ -78,9 +80,9 @@ class ChessGame
     check_pawn_promotion
     @whites_turn = !@whites_turn if res == 'executed'
     next_color = (@whites_turn ? :white : :black)
-    if res =='executed' && @board.in_check?(next_color)
-      res = "Player In Check!!" 
-      res = "That looks like CHECKMATE!" if won?
+    if res.class == Array && @board.in_check?(next_color)
+      res << "Player In Check!!" 
+      res << "That looks like CHECKMATE!" if won?
     end
     return res
   end
