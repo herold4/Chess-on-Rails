@@ -8,6 +8,11 @@
   </center>
 </div>
 
+<div id="captured">
+<b><%= @white_player.captured if @white_player %></b>
+<b><%= @black_player.captured if @black_player %></b>
+</div>
+
 <center>
 <form action="/new" method="get">
 <button>New Game</button>
@@ -49,12 +54,6 @@
   <br><br>
   </center>
 
-
-  
-<section id="session-info">
-  <h3>Session Token: <%= @s_token[0..10] %>...</h3>
-</section>
-
 <section id="lower-turn">
   <center>
   <% if @game.whites_turn %>
@@ -69,8 +68,7 @@
 </center>
 </section>
 
-<%= 'white has:' + @white_player.captured if @white_player %>
-<%= 'black has:' + @black_player.captured if @black_player %>
+
 
 
 
