@@ -42,17 +42,17 @@ class GamesController < ApplicationController
     @game = current_game.from_s
     @white_player = current_game.players.where(white: true).first
     @black_player = current_game.players.where(white: false).first
+    @s_token = session[:token]
     start = start_params
     land = end_params
     response_arr = @game.process_move(start,land)
-    flash[:notice] = response_arr[2]
-    @s_token = session[:token]
-    if response_arr[0] 
-      update_state(@game, @s_token, @white_player, @black_player)
+    captured = response_arr[0]
+    flash[:notice] = response_arr[1]
+    if response_arr[0] #meaning there's a captured piece
+      update_state(@game, @s_token, @white_player, @black_player, captured)
     else
-      
+      update_state(@game, @s_token)
     end
-    
     render :index
   end
   
@@ -78,10 +78,10 @@ class GamesController < ApplicationController
   end
   
   def update_state(chessgame, token, white_p = nil, black_p = nil, capt = nil)
-    if player && chessgame.turn == 'black'
+    if capt && chessgame.turn == 'black'
       white_p.captured += capt
       white_p.save
-    elsif player && chessgame.turn == 'white'
+    elsif capt && chessgame.turn == 'white'
       black_p.captured += capt
       black_p.save
     end
