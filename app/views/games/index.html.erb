@@ -1,4 +1,3 @@
-
 <div class="notice-div">
   <center>
 <% if flash[:notice] %>
@@ -10,16 +9,9 @@
 </div>
 
 <center>
-
-
 <form action="/new" method="get">
-
 <button>New Game</button>
 </form>
-
-
-
-
 <br><br>
 <% if !@game.whites_turn %>
 <h1 style="background-color: black; width: 426px;" id="upper-turn">
@@ -31,14 +23,10 @@
 </h1>
 <% end %>
 
-  
   <% (0..7).each do |n| %>
       <div class="col">
-      
       <% 8.times do |i| %>
-      
         <% if ((i + n) % 2 == 0) %>
-      
         <div style="background-color:white;" 
         class="space" id="<%= n %>x<%= i %>y">
           <% piece = @game.board[n,i] %>
@@ -47,7 +35,6 @@
           <% end %>
         </div>
         <% else %>
-      
         <div style="background-color:green;" 
         class="space" id="<%= n %>x<%= i %>y">
           <% piece = @game.board[n,i] %>
@@ -56,27 +43,16 @@
           <% end %>
         </div>
         <% end %>
-        
       <% end %>
-
-
       </div>
-
   <% end %>
-  
-
   <br><br>
-  
-
-
   </center>
 
 
   
 <section id="session-info">
   <h3>Session Token: <%= @s_token[0..10] %>...</h3>
-  <p>Your browser is given a new session token (encrypted in the cookie) for each new game.  Similarly the new game created in the database is given a matching token.  This token will ensure that, with every request, the client is playing the game that <i>it</i> started.  The state of games are stringified and updated in the database on every move.  As of now the DB only knows where all the pieces are and whose turn it is.  It doesn't yet know, for example, if you've moved your king.  The logic for the game is found in '/app/models'. </p>
-  <p>If you want to dig a little deeper, look at the 'games_controller.rb' and 'game.rb' to see how the Game model in the database is converted into a more complex ChessGame object in Ruby. The most interesting part of this application is how the ChessGame class evaluates moves (both the moves requested and all viable moves) to determine the state of the game - 'check', 'checkmate', 'invalid move', etc.</p>
 </section>
 
 <section id="lower-turn">
@@ -92,6 +68,10 @@
   <% end %>
 </center>
 </section>
+
+<%= 'white has:' + @white_player.captured if @white_player %>
+<%= 'black has:' + @black_player.captured if @black_player %>
+
 
 
   

@@ -95,16 +95,17 @@ class Board
   def move(start_pos, end_pos, color)
     piece = self[start_pos[0], start_pos[1]]
     if piece.color.to_s != color.to_s
-      return [nil, nil, "You cannot move your opponent's piece"]
+      return [nil, "You cannot move your opponent's piece"]
     elsif !piece.moves.include?(end_pos)
-      return [nil, nil, 'Invalid Move']
+      return [nil, 'Invalid Move']
     else
       dupboard = deep_dup
       dupboard[start_pos[0], start_pos[1]].move(end_pos[0], end_pos[1])
       if dupboard.in_check?(color)
-        return [nil, nil, 'That Leaves You In Check']
+        return [nil, 'That Leaves You In Check']
+      else
+        return piece.move(end_pos[0], end_pos[1])
       end
-      return piece.move(end_pos[0], end_pos[1])
     end
   end
   

@@ -7,15 +7,15 @@ class GamesController < ApplicationController
       @s_token = session[:token]
       @game = ChessGame.new_game
       create_game(@game, @s_token)
-      @white_player = current_game.players.where(white: true)
-      @black_player = current_game.players.where(white: false)
+      @white_player = current_game.players.where(white: true).first
+      @black_player = current_game.players.where(white: false).first
       flash[:notice] = 'New Session'
       render :index
     else
       if current_game
         @game = current_game.from_s
-        @white_player = current_game.players.where(white: true)
-        @black_player = current_game.players.where(white: false)
+        @white_player = current_game.players.where(white: true).first
+        @black_player = current_game.players.where(white: false).first
         @s_token = session[:token]
         flash[:notice] = 'Welcome Back'
         render :index
@@ -24,8 +24,8 @@ class GamesController < ApplicationController
         @s_token = session[:token] 
         @game = new_game_data
         create_game(@game, @s_token)
-        @white_player = current_game.players.where(white: true)
-        @black_player = current_game.players.where(white: false)
+        @white_player = current_game.players.where(white: true).first
+        @black_player = current_game.players.where(white: false).first
         flash[:notice] = 'Welcome Back'
         render :index 
       end     
@@ -40,15 +40,19 @@ class GamesController < ApplicationController
   
   def move
     @game = current_game.from_s
-    @white_player = current_game.players.where(white: true)
-    @black_player = current_game.players.where(white: false)
+    @white_player = current_game.players.where(white: true).first
+    @black_player = current_game.players.where(white: false).first
     start = start_params
     land = end_params
     response_arr = @game.process_move(start,land)
     flash[:notice] = response_arr[2]
-    fail
     @s_token = session[:token]
-    update_state(@game, @s_token)
+    if response_arr[0] 
+      update_state(@game, @s_token, @white_player, @black_player)
+    else
+      
+    end
+    
     render :index
   end
   
@@ -63,17 +67,24 @@ class GamesController < ApplicationController
     Player.create({
       white: true,
       game_id: dbgame.id,
-      captured_pieces: ''
+      captured: ''
     })
     Player.create({
       white: false,
       game_id: dbgame.id,
-      captured_pieces: ''
+      captured: ''
     })
     @current_game = dbgame
   end
   
-  def update_state(chessgame, token)
+  def update_state(chessgame, token, white_p = nil, black_p = nil, capt = nil)
+    if player && chessgame.turn == 'black'
+      white_p.captured += capt
+      white_p.save
+    elsif player && chessgame.turn == 'white'
+      black_p.captured += capt
+      black_p.save
+    end
     current_game.update_attributes({
       state: chessgame.to_s, 
       turn: chessgame.turn,

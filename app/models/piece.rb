@@ -1,4 +1,7 @@
 # encoding: utf-8
+BLACK_HASH = {king: "♚",queen: "♛", rook: "♜", bishop: "♝", knight: "♞", pawn: "♟"}
+WHITE_HASH = {king: "♔",queen: "♕", rook: "♖", bishop: "♗", knight: "♘", pawn: "♙"}
+
 class Piece
   attr_accessor :x, :y
   attr_reader :color, :board
@@ -18,28 +21,24 @@ class Piece
   end
   
   def to_s
-    black_hash = {king: "♚",queen: "♛", rook: "♜", bishop: "♝", knight: "♞", pawn: "♟"}
-    white_hash = {king: "♔",queen: "♕", rook: "♖", bishop: "♗", knight: "♘", pawn: "♙"}
-    
     if color == :black
-      black_hash[self.class.to_s.downcase.to_sym]
+      BLACK_HASH[self.class.to_s.downcase.to_sym]
     elsif color == :white
-      white_hash[self.class.to_s.downcase.to_sym]
+      WHITE_HASH[self.class.to_s.downcase.to_sym]
     end
   end
   
   def move(new_x, new_y)
-    capture = board[x,y]
     board[x, y] = nil
     @x, @y = new_x, new_y
+    capture = board[new_x,new_y]
     board[new_x, new_y] = self
     if capture
-      return [capture.class, capture.color, 'executed']
+      return [capture.to_s, 'executed']
     else
-      return [nil, nil, 'executed']
+      return [nil, 'executed']
     end
   end
-
   
   def moves
     raise NoMethodError.new "Called Piece SuperClass 'moves' method"
@@ -52,34 +51,25 @@ class Piece
     end
     result
   end
-  
-
 end
-
 
 class SteppingPiece < Piece
   
   def moves(deltas)
-    
     results = []
     deltas.each do |delt|
       newx, newy = [x + delt[0], y + delt[1]]
       next unless valid_move?(newx, newy)
       destination_sq = board[newx, newy]
       occupied = destination_sq && destination_sq.color == self.color
-      
       results << [newx, newy] unless occupied
-      
     end
     results
-    
   end
 end
 
 class SlidingPiece < Piece
-  
-    
-  
+
   def moves(orthogonal = false, diagonal = false)
     results = []
     deltas = []
@@ -117,7 +107,6 @@ class SlidingPiece < Piece
         end
       end
     end
-  
     results
 end
   
@@ -154,8 +143,8 @@ class Pawn < Piece
   end
   
   def move(new_x, new_y)
-    super
     @moved = true
+    super
   end
 end
 
@@ -189,8 +178,8 @@ class Rook < SlidingPiece
   end
   
   def move(new_x, new_y)
-    super
     @moved = true
+    super
   end
 end
 
@@ -223,8 +212,8 @@ class King < SteppingPiece
       rook = board[0, y]
       rook.move(3, y)
     end
-    super
     @moved = true
+    super
   end
   
   def moves

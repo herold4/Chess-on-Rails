@@ -78,11 +78,11 @@ class ChessGame
     c_color = (@whites_turn ? :white : :black)
     res_arr = @board.move(s_pos, e_pos, c_color)
     check_pawn_promotion
-    @whites_turn = !@whites_turn if res_arr[2] == 'executed'
+    @whites_turn = !@whites_turn if res_arr[1] == 'executed'
     next_color = (@whites_turn ? :white : :black)
-    if res_arr[2] == 'executed' && @board.in_check?(next_color)
-      res_arr[2] = "Player In Check!!" 
-      res_arr[2] = "That looks like CHECKMATE!" if won?
+    if res_arr[1] == 'executed' && @board.in_check?(next_color)
+      res_arr[1] = "Player In Check!!" 
+      res_arr[1] = "That looks like CHECKMATE!" if won?
     end
     return res_arr
   end
