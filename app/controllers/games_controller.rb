@@ -7,15 +7,13 @@ class GamesController < ApplicationController
       @s_token = session[:token]
       @game = ChessGame.new_game
       create_game(@game, @s_token)
-      @white_player = current_game.players.where(white: true).first
-      @black_player = current_game.players.where(white: false).first
+      fetch_player_data
       flash[:notice] = 'New Session'
       render :index
     else
       if current_game
         @game = current_game.from_s
-        @white_player = current_game.players.where(white: true).first
-        @black_player = current_game.players.where(white: false).first
+        fetch_player_data
         @s_token = session[:token]
         flash[:notice] = 'Welcome Back'
         render :index
@@ -24,8 +22,7 @@ class GamesController < ApplicationController
         @s_token = session[:token] 
         @game = new_game_data
         create_game(@game, @s_token)
-        @white_player = current_game.players.where(white: true).first
-        @black_player = current_game.players.where(white: false).first
+        fetch_player_data
         flash[:notice] = 'Welcome Back'
         render :index 
       end     
@@ -40,8 +37,7 @@ class GamesController < ApplicationController
   
   def move
     @game = current_game.from_s
-    @white_player = current_game.players.where(white: true).first
-    @black_player = current_game.players.where(white: false).first
+    fetch_player_data
     @s_token = session[:token]
     start = start_params
     land = end_params
@@ -57,6 +53,11 @@ class GamesController < ApplicationController
   end
   
   private
+  
+  def fetch_player_data
+    @white_player = current_game.players.where(white: true).first
+    @black_player = current_game.players.where(white: false).first
+  end
   
   def create_game(chessgame, token)
     dbgame = Game.create({

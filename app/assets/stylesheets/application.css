@@ -29,6 +29,10 @@ body {
   top: 5px;
 }
 
+b {
+  font-size: 30px;
+}
+
 button {
   position: relative;
   left: 3px;
