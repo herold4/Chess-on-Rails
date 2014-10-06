@@ -105,7 +105,6 @@ class ChessGame
     end 
   end
   
-  
   def to_s
     @board.to_s
   end

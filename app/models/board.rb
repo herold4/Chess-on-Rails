@@ -5,11 +5,6 @@ require 'piece'
 class Board
   attr_accessor :grid
   
-  def generate_moved_arrays
-      
-    
-  end
-  
   def initialize
     @grid = Array.new(8) { Array.new(8, nil) }
   end
@@ -78,7 +73,6 @@ class Board
     false
   end
 
-
   def deep_dup
     boardcopy = Board.new
     boardcopy.grid = grid.dup
@@ -135,6 +129,5 @@ class Board
     end
     return result
   end
-  
 
 end
