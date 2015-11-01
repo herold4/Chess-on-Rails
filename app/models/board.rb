@@ -1,5 +1,3 @@
-# encoding: utf-8
-require 'colorize'
 require 'piece'
 
 class Board

@@ -1,10 +1,10 @@
 # encoding: utf-8
-BLACK_HASH = {king: "♚",queen: "♛", rook: "♜", bishop: "♝", knight: "♞", pawn: "♟"}
-WHITE_HASH = {king: "♔",queen: "♕", rook: "♖", bishop: "♗", knight: "♘", pawn: "♙"}
-
 class Piece
   attr_accessor :x, :y
   attr_reader :color, :board
+	
+	BLACK_HASH = {king: "♚",queen: "♛", rook: "♜", bishop: "♝", knight: "♞", pawn: "♟"}
+	WHITE_HASH = {king: "♔",queen: "♕", rook: "♖", bishop: "♗", knight: "♘", pawn: "♙"}
   
   def initialize(color, board, x, y)
     @color = color
