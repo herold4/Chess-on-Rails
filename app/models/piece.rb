@@ -1,31 +1,15 @@
-# encoding: utf-8
 class Piece
   attr_accessor :x, :y
   attr_reader :color, :board
 	
-	BLACK_HASH = {king: "♚",queen: "♛", rook: "♜", bishop: "♝", knight: "♞", pawn: "♟"}
-	WHITE_HASH = {king: "♔",queen: "♕", rook: "♖", bishop: "♗", knight: "♘", pawn: "♙"}
-  
   def initialize(color, board, x, y)
     @color = color
     @board = board
     @x, @y = x, y
   end
   
-  def html
-    x.to_s + 'x' + y.to_s + 'y'
-  end
-  
   def valid_move?(x, y)
     (0...8).include?(x) && (0...8).include?(y)
-  end
-  
-  def to_s
-    if color == :black
-      BLACK_HASH[self.class.to_s.downcase.to_sym]
-    elsif color == :white
-      WHITE_HASH[self.class.to_s.downcase.to_sym]
-    end
   end
   
   def move(new_x, new_y)
@@ -34,7 +18,7 @@ class Piece
     capture = board[new_x,new_y]
     board[new_x, new_y] = self
     if capture
-      return [capture.to_s, 'executed']
+      return [capture, 'executed']
     else
       return [nil, 'executed']
     end
