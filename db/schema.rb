@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170409224322) do
+ActiveRecord::Schema.define(version: 20170409232221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,22 +29,29 @@ ActiveRecord::Schema.define(version: 20170409224322) do
     t.integer  "player_id",              null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "games_id"
   end
 
   add_index "moves", ["game_id", "ordinal"], name: "index_moves_on_game_id_and_ordinal", unique: true, using: :btree
 
-  create_table "moves_players", id: false, force: :cascade do |t|
-    t.integer "player_id", null: false
-    t.integer "move_id",   null: false
-  end
-
-  add_index "moves_players", ["move_id", "player_id"], name: "index_moves_players_on_move_id_and_player_id", using: :btree
-  add_index "moves_players", ["player_id", "move_id"], name: "index_moves_players_on_player_id_and_move_id", using: :btree
-
   create_table "players", force: :cascade do |t|
-    t.string  "name",            null: false
-    t.integer "current_game_id"
-    t.string  "session_token"
+    t.string   "name",            null: false
+    t.integer  "current_game_id"
+    t.string   "session_token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  create_table "players_games", force: :cascade do |t|
+    t.integer  "player_id",  null: false
+    t.integer  "game_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "players_id"
+    t.integer  "games_id"
+  end
+
+  add_index "players_games", ["game_id", "player_id"], name: "index_players_games_on_game_id_and_player_id", using: :btree
+  add_index "players_games", ["player_id", "game_id"], name: "index_players_games_on_player_id_and_game_id", using: :btree
 
 end
