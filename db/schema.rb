@@ -24,9 +24,14 @@ ActiveRecord::Schema.define(version: 20170409232221) do
   end
 
   create_table "moves", force: :cascade do |t|
-    t.integer  "game_id",                null: false
-    t.integer  "ordinal",    default: 0, null: false
-    t.integer  "player_id",              null: false
+    t.integer  "game_id",                           null: false
+    t.integer  "ordinal",               default: 0, null: false
+    t.string   "piece",       limit: 7,             null: false
+    t.string   "from_letter", limit: 1
+    t.integer  "from_number", limit: 2
+    t.string   "to_letter",   limit: 1
+    t.integer  "to_number",   limit: 2
+    t.integer  "player_id",                         null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "games_id"
@@ -45,6 +50,7 @@ ActiveRecord::Schema.define(version: 20170409232221) do
   create_table "players_games", force: :cascade do |t|
     t.integer  "player_id",  null: false
     t.integer  "game_id"
+    t.boolean  "is_white",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "players_id"

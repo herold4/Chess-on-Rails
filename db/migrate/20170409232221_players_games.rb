@@ -3,6 +3,7 @@ class PlayersGames < ActiveRecord::Migration
     create_table :players_games do |t|
 			t.integer :player_id, null: false
 			t.integer :game_id
+			t.boolean :is_white, null: false
 			t.timestamps
 			t.references :players, constraint: true
 			t.references :games, constraint: true
